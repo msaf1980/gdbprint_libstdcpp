@@ -1,0 +1,4 @@
+build
+dist
+gdbprint*.egg-info
+*.pyc
