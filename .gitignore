@@ -2,3 +2,8 @@ build
 dist
 gdbprint*.egg-info
 *.pyc
+.*.swp
+test
+test*.in
+test*.out
+test*.reject
