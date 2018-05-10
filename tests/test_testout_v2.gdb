@@ -1,26 +1,26 @@
 (gdb) file test
-(gdb) py sys.path.append('..')
+(gdb) py sys.path.insert(0, '..')
 (gdb) py import gdbprint
 (gdb) py import gdbprint_libstdcpp
-(gdb) break 121
+(gdb) break 127
 (gdb) run
-Breakpoint: file test.cpp, line 121.
+Breakpoint: file test.cpp, line 127.
 
-Breakpoint 1, main at test.cpp:121
+Breakpoint 1, main at test.cpp:127
 
 (gdb) p_s verbose 2
 (gdb) p_s w 0
 (gdb) p_v cppwstr
-"cppwstr" = (std::basic_string<wchar_t, ..>) <0xHEX> str_len:30 capacity:30 { [0:29] = L"Василий Пупкин, Vasiliy Pupkin" }
+"cppwstr" = (std::basic_string<wchar_t, ..>) <0xHEX> str_len:30 capacity:N { [0:29] = L"Василий Пупкин, Vasiliy Pupkin" }
 (gdb) p_v cppwstr [ 0:10, 15 ]
-"cppwstr" = (std::basic_string<wchar_t, ..>) <0xHEX> str_len:30 capacity:30 {
+"cppwstr" = (std::basic_string<wchar_t, ..>) <0xHEX> str_len:30 capacity:N {
      { [0:10] = L"Василий Пуп" },
      { [15] = L" " },
 }
 (gdb) p_v cppstr<utf8>
-"cppstr" = (std::basic_string<char, ..>) <0xHEX> str_len:42 capacity:42 { [0:41] = utf-8:"Василий Пупкин Vasiliy Pupkin" }
+"cppstr" = (std::basic_string<char, ..>) <0xHEX> str_len:42 capacity:N { [0:41] = utf-8:"Василий Пупкин Vasiliy Pupkin" }
 (gdb) p_v cppstr<arr,utf8> [ 0:10, 15 ]
-"cppstr" = (std::basic_string<char, ..>) <0xHEX> str_len:42 capacity:42 {
+"cppstr" = (std::basic_string<char, ..>) <0xHEX> str_len:42 capacity:N {
     [0] = 208 "Р",
     [1] = 146 "’" utf-8:"В",
     [2] = 208 "Р",
@@ -35,9 +35,9 @@ Breakpoint 1, main at test.cpp:121
     [15] = 208 "Р",
 }
 (gdb) p_v cppstr1251
-"cppstr1251" = (std::basic_string<char, ..>) <0xHEX> str_len:15 capacity:15 { [0:14] = "Василий Vasiliy" }
+"cppstr1251" = (std::basic_string<char, ..>) <0xHEX> str_len:15 capacity:N { [0:14] = "Василий Vasiliy" }
 (gdb) p_v cppstr1251<arr> [ 0:10, 15 ]
-"cppstr1251" = (std::basic_string<char, ..>) <0xHEX> str_len:15 capacity:15 {
+"cppstr1251" = (std::basic_string<char, ..>) <0xHEX> str_len:15 capacity:N {
     [0] = 194 "В",
     [1] = 224 "а",
     [2] = 241 "с",
@@ -61,7 +61,7 @@ Breakpoint 1, main at test.cpp:121
     [2] = (char) 120 "x",
 }
 (gdb) p_v vec
-"vec" = (std::vector<int, ..>) <0xHEX> size:100000 capacity:100000 {
+"vec" = (std::vector<int, ..>) <0xHEX> size:100000 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -114,7 +114,7 @@ Breakpoint 1, main at test.cpp:121
     [49] = 0,
 }
 (gdb) p_v vec[0:10, 15]
-"vec" = (std::vector<int, ..>) <0xHEX> size:100000 capacity:100000 {
+"vec" = (std::vector<int, ..>) <0xHEX> size:100000 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -129,13 +129,13 @@ Breakpoint 1, main at test.cpp:121
     [15] = 0,
 }
 (gdb) p_v vec[]@
-"vec" = (std::vector<int, ..>) <0xHEX> size:100000 capacity:100000 {
+"vec" = (std::vector<int, ..>) <0xHEX> size:100000 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
 }
 (gdb) p_v ptr
-"ptr" = (std::vector<int, ..> *) <0xHEX> { ptr = size:100000 capacity:100000 {
+"ptr" = (std::vector<int, ..> *) <0xHEX> { ptr = size:100000 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -188,26 +188,26 @@ Breakpoint 1, main at test.cpp:121
     [49] = 0,
 } }
 (gdb) p_v vec_st
-"vec_st" = (std::vector<st, ..>) <0xHEX> size:2 capacity:2 {
+"vec_st" = (std::vector<st, ..>) <0xHEX> size:2 capacity:N {
     [0] = (st) <0xHEX> {
         "i" = (int) 1,
-        "ui" = (unsigned int) 0,
-        "l" = (long) 0,
-        "ul" = (unsigned long) 0,
-        "f" = (float) 0,
-        "d" = (double) 0
+        "ui" = (unsigned int) 1000,
+        "l" = (long) 1000,
+        "ul" = (unsigned long) 1000,
+        "f" = (float) 1000,
+        "d" = (double) 1000
     },
     [1] = (st) <0xHEX> {
         "i" = (int) 2,
-        "ui" = (unsigned int) 0,
-        "l" = (long) 0,
-        "ul" = (unsigned long) 0,
-        "f" = (float) 0,
-        "d" = (double) 0
+        "ui" = (unsigned int) 1000,
+        "l" = (long) 1000,
+        "ul" = (unsigned long) 1000,
+        "f" = (float) 1000,
+        "d" = (double) 1000
     },
 }
 (gdb) p_v ar
-"ar" = (std::array<int, 200ul>) <0xHEX> size:200 capacity:200 {
+"ar" = (std::array<int, 200ul>) <0xHEX> size:200 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -260,7 +260,7 @@ Breakpoint 1, main at test.cpp:121
     [49] = 0,
 }
 (gdb) p_v ar[]@
-"ar" = (std::array<int, 200ul>) <0xHEX> size:200 capacity:200 {
+"ar" = (std::array<int, 200ul>) <0xHEX> size:200 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -317,9 +317,9 @@ Breakpoint 1, main at test.cpp:121
 }
 (gdb) p_v set_unorder
 "set_unorder" = (std::unordered_set<std::basic_string<char, ..>) <0xHEX> size:3 {
-    [0] = (std::basic_string<char, ..>) <0xHEX> str_len:4 capacity:4 { [0:3] = "blue" },
-    [1] = (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:5 { [0:4] = "green" },
-    [2] = (std::basic_string<char, ..>) <0xHEX> str_len:6 capacity:6 { [0:5] = "yellow" },
+    [0] = (std::basic_string<char, ..>) <0xHEX> str_len:4 capacity:N { [0:3] = "blue" },
+    [1] = (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:N { [0:4] = "green" },
+    [2] = (std::basic_string<char, ..>) <0xHEX> str_len:6 capacity:N { [0:5] = "yellow" },
 }
 (gdb) p_v bitset0[]@
 "bitset0" = (std::bitset<50ul>) <0xHEX> {
@@ -331,24 +331,24 @@ Breakpoint 1, main at test.cpp:121
 }
 (gdb) p_v map
 "map" = (std::map<int, ..>) <0xHEX> size:2 {
-    [0] = { (int) 1 } => { (std::basic_string<char, ..>) <0xHEX> str_len:1 capacity:1 { [0] = "1" } },
-    [1] = { (int) 3 } => { (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:5 { [0:4] = "str 3" } },
+    [0] = { (int) 1 } => { (std::basic_string<char, ..>) <0xHEX> str_len:1 capacity:N { [0] = "1" } },
+    [1] = { (int) 3 } => { (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:N { [0:4] = "str 3" } },
 }
 (gdb) p_v map_unorder
 "map_unorder" = (std::unordered_map<std::basic_string<char, ..>) <0xHEX> size:4 {
-    [0] = { (std::basic_string<char, ..>) <0xHEX> str_len:13 capacity:13 { [0:12] = "mineral water" } } => { (double) 2.5 },
-    [1] = { (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:5 { [0:4] = "water" } } => { (double) 3.5 },
-    [2] = { (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:5 { [0:4] = "flour" } } => { (double) 1.5 },
-    [3] = { (std::basic_string<char, ..>) <0xHEX> str_len:4 capacity:4 { [0:3] = "milk" } } => { (double) 2 },
+    [0] = { (std::basic_string<char, ..>) <0xHEX> str_len:13 capacity:N { [0:12] = "mineral water" } } => { (double) 2.5 },
+    [1] = { (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:N { [0:4] = "water" } } => { (double) 3.5 },
+    [2] = { (std::basic_string<char, ..>) <0xHEX> str_len:5 capacity:N { [0:4] = "flour" } } => { (double) 1.5 },
+    [3] = { (std::basic_string<char, ..>) <0xHEX> str_len:4 capacity:N { [0:3] = "milk" } } => { (double) 2 },
 }
 (gdb) p_v map_unorder[3]
 "map_unorder" = (std::unordered_map<std::basic_string<char, ..>) <0xHEX> size:4 {
-    [3] = { (std::basic_string<char, ..>) <0xHEX> str_len:4 capacity:4 { [0:3] = "milk" } } => { (double) 2 },
+    [3] = { (std::basic_string<char, ..>) <0xHEX> str_len:4 capacity:N { [0:3] = "milk" } } => { (double) 2 },
 }
 (gdb) p_v multimap
 "multimap" = (std::multimap<int, ..>) <0xHEX> size:2 {
-    [0] = { (int) 2 } => { (std::basic_string<char, ..>) <0xHEX> str_len:1 capacity:1 { [0] = "1" } },
-    [1] = { (int) 2 } => { (std::basic_string<char, ..>) <0xHEX> str_len:1 capacity:1 { [0] = "2" } },
+    [0] = { (int) 2 } => { (std::basic_string<char, ..>) <0xHEX> str_len:1 capacity:N { [0] = "1" } },
+    [1] = { (int) 2 } => { (std::basic_string<char, ..>) <0xHEX> str_len:1 capacity:N { [0] = "2" } },
 }
 (gdb) p_v set
 "set" = (std::set<int, ..>) <0xHEX> size:3 {

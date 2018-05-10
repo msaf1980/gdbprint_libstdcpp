@@ -56,10 +56,10 @@ class StdBitsetPrinter(DebugPrinter):
             while w != 0 and i < end:
                 if (w & 1) != 0:
                     # Return not-0 bit
-        	    result.append((i, 1))
-        	else:
+                    result.append((i, 1))
+                else:
         	    # Return 0 bit
-        	    result.append((i, 0))
+                    result.append((i, 0))
                 bit += 1
                 i += 1
                 w = w >> 1
@@ -147,7 +147,7 @@ def get_value_from_list_node(node):
 
 
 class StdListPrinter(DebugPrinter):
-    names = [ "std::list" ]
+    names = [ "std::list", "std::__cxx11::list" ]
 
     @staticmethod
     def display_hint():
@@ -246,19 +246,28 @@ class StdStringPrinter(DebugPrinter):
         # encountered.
         length = None
         capacity = None
+
         # Calculate the length of the string so that to_string returns
         # the string according to length, not according to first null
         # encountered.
         ptr = self.ptr()
-        if self.new_string:
-            length = int(self.value ['_M_string_length'])
-            capacity = int(self.value ['_M_string_capacity'])
-        else:
-            realtype = self.type.unqualified().strip_typedefs()
-            reptype = gdb.lookup_type(str (realtype) + '::_Rep').pointer()
-            header = ptr.cast(reptype) - 1
-            length = int(header.dereference()['_M_length'])
-            capacity = int(header.dereference()['_M_capacity'])
+        try:
+            if self.new_string:
+                length = int(self.value ['_M_string_length'])
+                capacity = int(self.value ['_M_string_capacity'])
+            else:
+                realtype = self.type.unqualified().strip_typedefs()
+                reptype = gdb.lookup_type(str (realtype) + '::_Rep').pointer()
+                header = ptr.cast(reptype) - 1
+                length = int(header.dereference()['_M_length'])
+                capacity = int(header.dereference()['_M_capacity'])
+
+        except:
+            #libstdc++6 6.3.0-18
+            if length is None: length = int(self.value ['_M_string_length'])
+            capacity = int(self.value ['_M_allocated_capacity'])
+
+        if capacity > 4294967291: capacity = length # Fix for libstdc++6 6.3.0-18, but sometimes this don't work
         return (length,  capacity)
         
     def ptr(self):
@@ -512,7 +521,7 @@ class StdMapPrinter(DebugPrinter):
         return len(self.rbiter)
         
     def get_pos(self):
-	return self.pos
+        return self.pos
 
 
 class StdSetPrinter(DebugPrinter):
@@ -545,7 +554,7 @@ class StdSetPrinter(DebugPrinter):
         return len(self.rbiter)
         
     def get_pos(self):
-	return self.pos
+        return self.pos
 
 
 class StdAutoPointerPrinter(DebugPrinter):
@@ -697,7 +706,7 @@ class StdUnorderedMapPrinter(DebugPrinter):
         return result
         
     def get_pos(self):
-	return self.pos
+        return self.pos
 
 
 class StdUnorderedSetPrinter(DebugPrinter):
@@ -730,7 +739,7 @@ class StdUnorderedSetPrinter(DebugPrinter):
         return n
         
     def get_pos(self):
-	return self.pos
+        return self.pos
 
 
 libstdcpp_v3_printers = [

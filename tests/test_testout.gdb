@@ -1,12 +1,12 @@
 (gdb) file test
-(gdb) py sys.path.append('..')
+(gdb) py sys.path.insert(0, '..')
 (gdb) py import gdbprint
 (gdb) py import gdbprint_libstdcpp
-(gdb) break 121
+(gdb) break 127
 (gdb) run
-Breakpoint: file test.cpp, line 121.
+Breakpoint: file test.cpp, line 127.
 
-Breakpoint 1, main at test.cpp:121
+Breakpoint 1, main at test.cpp:127
 
 (gdb) p_s verbose 0
 (gdb) p_s w 0
@@ -191,19 +191,19 @@ Breakpoint 1, main at test.cpp:121
 "vec_st" = {
     [0] = {
         "i" = 1,
-        "ui" = 0,
-        "l" = 0,
-        "ul" = 0,
-        "f" = 0,
-        "d" = 0
+        "ui" = 1000,
+        "l" = 1000,
+        "ul" = 1000,
+        "f" = 1000,
+        "d" = 1000
     },
     [1] = {
         "i" = 2,
-        "ui" = 0,
-        "l" = 0,
-        "ul" = 0,
-        "f" = 0,
-        "d" = 0
+        "ui" = 1000,
+        "l" = 1000,
+        "ul" = 1000,
+        "f" = 1000,
+        "d" = 1000
     },
 }
 (gdb) p_v ar

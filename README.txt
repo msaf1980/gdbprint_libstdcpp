@@ -4,7 +4,7 @@ Package with printers for browse GNU libstdc++-v3 STL data structuras for gdbpri
 Based on pretty-printers for libstdc++.
 Supported C++11 structuras
 
-Tested on libstdc++-v3 (4.8.5 and 6.3.1)
+Tested on libstdc++-v3 (4.8 and 6.3)
 
 Debug printers:
 "std::tr1::unordered_set" = "<class 'gdbprint_libstdcpp.libstdcpp_v3.StdUnorderedSetPrinter'>" (set)

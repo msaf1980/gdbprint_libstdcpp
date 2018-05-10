@@ -11,6 +11,8 @@ for o in sys.stdin:
         o = re.sub(r'Breakpoint [0-9]+, main \(argc=1, argv=0x[0-9a-f]+\) at', 'Breakpoint 1, main at', o)
         o = re.sub(r'[0-9]+[ \t]+return 0;', '', o)
         o = re.sub(r'0x[0-9a-f]*[1-9a-f]+[0-9a-f]*', '0xHEX', o)
+        o = re.sub(r'std::__cxx11::', 'std::', o)
+        o = re.sub(r'capacity:\d+ ', 'capacity:N ', o)
         o = re.sub(cdir, '', o)
 	
     sys.stdout.write(o)

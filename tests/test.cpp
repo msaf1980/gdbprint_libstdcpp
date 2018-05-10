@@ -52,6 +52,12 @@ int main(int argc, char* argv[]) {
 
 	std::vector<st> vec_st;
 	st s;
+	s.ui = 1000;
+	s.l = 1000L;
+	s.ul = 1000L;
+	s.f = 1000.0F;
+	s.d = 1000.0D;
+
 	s.i = 1;
 	vec_st.push_back(s);
 	s.i = 2;

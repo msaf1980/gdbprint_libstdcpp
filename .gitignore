@@ -2,6 +2,7 @@ build
 dist
 gdbprint*.egg-info
 *.pyc
+__pycache__
 .*.swp
 test
 test*.in

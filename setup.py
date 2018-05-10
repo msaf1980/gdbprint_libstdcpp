@@ -40,6 +40,8 @@ class RunTests(Command):
             o = re.sub(r'Breakpoint [0-9]+, main \(argc=1, argv=0x[0-9a-f]+\) at', 'Breakpoint 1, main at', o)
             o = re.sub(r'[0-9]+[ \t]+return 0;', '', o)
             o = re.sub(r'0x[0-9a-f]*[1-9a-f]+[0-9a-f]*', '0xHEX', o)
+            o = re.sub(r'std::__cxx11::', 'std::', o)
+            o = re.sub(r'capacity:\d+ ', 'capacity:N ', o)
             o = re.sub(cdir, '', o)
             with open(test + '.reject', 'w') as f: f.write(o)
             call([ 'diff', '-u', test + '.out', test + '.reject' ])
@@ -49,14 +51,20 @@ class RunClean(clean):
     def run(self):
         from subprocess import Popen, PIPE, call
         from os import getcwd, chdir, path
+        from os import remove
+        import glob
         import shutil
         c = clean(self.distribution)
         c.all = True
         c.finalize_options()
         c.run()
         cdir = path.dirname(path.realpath(__file__))
+        for f in glob.glob(path.join(cdir, pname, "*.pyc")):
+            remove(f)
+        shutil.rmtree(path.join(cdir, 'build'), ignore_errors=True)
         shutil.rmtree(path.join(cdir, 'dist'), ignore_errors=True)
-        shutil.rmtree(path.join(cdir, 'gdbprint_libstdcpp.egg-info'), ignore_errors=True)
+        shutil.rmtree(path.join(cdir, pname + '.egg-info'), ignore_errors=True)
+        shutil.rmtree(path.join(cdir, pname, '__pycache__'), ignore_errors=True)
         cwd = path.join(cdir, 'tests')
         chdir(cwd)
         call([ 'make', 'clean' ])
@@ -64,14 +72,16 @@ class RunClean(clean):
 
 if __name__ == '__main__':
 
-    setup(name='gdbprint_libstdcpp',
-        version='0.1.0',
+    pname = 'gdbprint_libstdcpp'
+
+    setup(name=pname,
+        version='0.1.1',
         description='GDB GNU libstdc++-v3 STL data structuras printers for gdbprint',
         url='http://github.com/msaf1980/gdbprint_libstdcpp',
         author='Michail Safronov',
         author_email='msaf1980@gmail.com',
         license='MIT',
-        packages=['gdbprint_libstdcpp'],
+        packages=[pname],
         install_requires=['gdbprint'],
         zip_safe=True,
         cmdclass={
