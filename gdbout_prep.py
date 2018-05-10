@@ -14,6 +14,7 @@ for o in sys.stdin:
         o = re.sub(r'std::__cxx11::', 'std::', o)
         o = re.sub(r'capacity:\d+ ', 'capacity:N ', o)
         o = re.sub(r'(\d+)ul>', r'\1>', o)
+        o = re.sub(r'std::__shared_ptr<int, \.\.>::element_type', 'int', o)
         o = re.sub(cdir, '', o)
 	
     sys.stdout.write(o)
