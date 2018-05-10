@@ -207,7 +207,7 @@ Breakpoint 1, main at test.cpp:127
     },
 }
 (gdb) p_v ar
-"ar" = (std::array<int, 200ul>) <0xHEX> size:200 capacity:N {
+"ar" = (std::array<int, 200>) <0xHEX> size:200 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -260,7 +260,7 @@ Breakpoint 1, main at test.cpp:127
     [49] = 0,
 }
 (gdb) p_v ar[]@
-"ar" = (std::array<int, 200ul>) <0xHEX> size:200 capacity:N {
+"ar" = (std::array<int, 200>) <0xHEX> size:200 capacity:N {
     [0] = 1,
     [1] = 2,
     [2] = 0,
@@ -322,11 +322,11 @@ Breakpoint 1, main at test.cpp:127
     [2] = (std::basic_string<char, ..>) <0xHEX> str_len:6 capacity:N { [0:5] = "yellow" },
 }
 (gdb) p_v bitset0[]@
-"bitset0" = (std::bitset<50ul>) <0xHEX> {
+"bitset0" = (std::bitset<50>) <0xHEX> {
     [0] = 0,
 }
 (gdb) p_v bitset1[] { @ _ = 1 }
-"bitset1" = (std::bitset<50ul>) <0xHEX> {
+"bitset1" = (std::bitset<50>) <0xHEX> {
     [0] = 1,
 }
 (gdb) p_v map
@@ -357,8 +357,8 @@ Breakpoint 1, main at test.cpp:127
     [2] = (int) 3,
 }
 (gdb) p_v ptr_auto
-"ptr_auto" = (std::auto_ptr<int>) <0xHEX>{ ptr = (int *) <0xHEX> { ptr = 1 } }
+"ptr_auto" = (std::auto_ptr<int>) <0xHEX> { ptr = (int *) <0xHEX> { ptr = 1 } }
 (gdb) p_v ptr_shared
-"ptr_shared" = (std::shared_ptr<int>) <0xHEX> desc:"count 1, weak 0"{ ptr = (int *) <0xHEX> { ptr = 4 } }
+"ptr_shared" = (std::shared_ptr<int>) <0xHEX> desc:"count 1, weak 0" { ptr = (int *) <0xHEX> { ptr = 4 } }
 (gdb) p_v ptr_unique
-"ptr_unique" = (std::unique_ptr<int, ..>) <0xHEX>{ ptr = (int *) <0xHEX> { ptr = 0 } }
+"ptr_unique" = (std::unique_ptr<int, ..>) <0xHEX> { ptr = (int *) <0xHEX> { ptr = 0 } }

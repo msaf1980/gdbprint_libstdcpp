@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import gdb
+import re
 #from dumper import *
 from gdbprint.gdbutils import *
 from gdbprint.gdbprinters import *
@@ -570,6 +571,9 @@ class StdAutoPointerPrinter(DebugPrinter):
         return (v,  None)
 
 
+def is_specialization_of(type, template_name):
+    return re.match('^std::([0-9]+::)?%s<.*>$' % template_name, type) is not None
+
 class StdUniquePointerPrinter(DebugPrinter):
     names = [ "std::unique_ptr" ]
 
@@ -582,8 +586,8 @@ class StdUniquePointerPrinter(DebugPrinter):
         impl_type = str(self.type.fields()[0].type)
         if impl_type.endswith('::__tuple_type'):
             v = self.value['_M_t']['_M_head_impl']
-        #elif is_specialization_of(impl_type, '__uniq_ptr_impl'): # New implementation
-        #    v = self.value['_M_t']['_M_t']['_M_head_impl']
+        elif is_specialization_of(impl_type, '__uniq_ptr_impl'): # New implementation
+            v = self.value['_M_t']['_M_t']['_M_head_impl']
         else:
             raise ValueError("Unsupported implementation for unique_ptr: %s" % self.value.type.fields()[0].type.tag)
         return (v,  None)

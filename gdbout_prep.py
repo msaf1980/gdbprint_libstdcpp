@@ -13,6 +13,7 @@ for o in sys.stdin:
         o = re.sub(r'0x[0-9a-f]*[1-9a-f]+[0-9a-f]*', '0xHEX', o)
         o = re.sub(r'std::__cxx11::', 'std::', o)
         o = re.sub(r'capacity:\d+ ', 'capacity:N ', o)
+        o = re.sub(r'(\d+)ul>', r'\1>', o)
         o = re.sub(cdir, '', o)
 	
     sys.stdout.write(o)
