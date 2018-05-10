@@ -1,0 +1,7 @@
+master
+
+Add support for python 3.5
+Some fixes for libstdc++ 6.3 on Debian 9
+
+v.0.1.0
+Support for Python 2.7
