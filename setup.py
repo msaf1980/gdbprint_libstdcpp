@@ -1,3 +1,4 @@
+import sys
 from distutils.cmd import Command
 from setuptools import setup
 from distutils.command.clean import clean
@@ -13,9 +14,11 @@ class RunTests(Command):
         cdir = path.dirname(path.realpath(__file__))
         cwd = path.join(cdir, 'tests')
         chdir(cwd)
-        call(["make"])
+        if call(["make"]):
+            raise Exception("make failed")
         for test in ['test_testout', 'test_testout_v2']:
-            print(test)
+            sys.stdout.write(test + "\n")
+            sys.stdout.flush()
             test = path.join(cwd, test)
             fg = open(test+'.gdb', 'r')
             fi = open(test+'.in', 'w')
@@ -34,6 +37,7 @@ class RunTests(Command):
             err = re.sub(r'[ \t]+\n', '', err)
             err = re.sub(r'\n', '', err)
             if err: raise Exception(e)
+            o = re.sub(r'load gdbprint \d+.\d+.\d+', 'load gdbprint', o)
             o = re.sub(r'(=.*) 0x[0-9a-f]+', r'\1 0xXXXXX', o)
             o = re.sub(r'Temporary breakpoint 1 at .*\n', '', o)
             o = re.sub(r'Breakpoint [0-9]+ at 0x[0-9a-f]+:', 'Breakpoint:', o)
