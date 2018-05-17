@@ -1,5 +1,6 @@
 master
 
+v.0.1.1
 Add support for python 3.5
 Some fixes for libstdc++ 6.3 on Debian 9
 
