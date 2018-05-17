@@ -22,6 +22,10 @@
 #include <unordered_map>
 #include <memory>
 
+typedef struct st_inc {
+        int inc;
+} st_inc;
+
 typedef struct st {
 	int i;
 	unsigned ui;
@@ -29,6 +33,7 @@ typedef struct st {
 	unsigned long ul;
 	float f;
 	double d;
+	st_inc inc;
 } st;
 
 int main(int argc, char* argv[]) { 
@@ -57,6 +62,7 @@ int main(int argc, char* argv[]) {
 	s.ul = 1000L;
 	s.f = 1000.0F;
 	s.d = 1000.0D;
+	s.inc.inc = 0;
 
 	s.i = 1;
 	vec_st.push_back(s);

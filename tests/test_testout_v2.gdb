@@ -4,11 +4,11 @@
 load gdbprint
 (gdb) py import gdbprint_libstdcpp
 load gdbprint_libstdcpp 0.1.1
-(gdb) break 127
+(gdb) break 133
 (gdb) run
-Breakpoint: file test.cpp, line 127.
+Breakpoint: file test.cpp, line 133.
 
-Breakpoint 1, main at test.cpp:127
+Breakpoint 1, main at test.cpp:133
 
 (gdb) p_s verbose 2
 (gdb) p_s w 0
@@ -197,7 +197,10 @@ Breakpoint 1, main at test.cpp:127
         "l" = (long) 1000,
         "ul" = (unsigned long) 1000,
         "f" = (float) 1000,
-        "d" = (double) 1000
+        "d" = (double) 1000,
+        "inc" = (st_inc) <0xHEX> {
+            "inc" = (int) 0,
+        },
     },
     [1] = (st) <0xHEX> {
         "i" = (int) 2,
@@ -205,7 +208,10 @@ Breakpoint 1, main at test.cpp:127
         "l" = (long) 1000,
         "ul" = (unsigned long) 1000,
         "f" = (float) 1000,
-        "d" = (double) 1000
+        "d" = (double) 1000,
+        "inc" = (st_inc) <0xHEX> {
+            "inc" = (int) 0,
+        },
     },
 }
 (gdb) p_v ar
@@ -297,14 +303,14 @@ Breakpoint 1, main at test.cpp:127
     "c" = (std::deque<int, ..>) <0xHEX> size:2 {
         [0] = (int) 1,
         [1] = (int) 2,
-    }
+    },
 }
 (gdb) p_v queue
 "queue" = (std::queue<int, ..>) <0xHEX> {
     "c" = (std::deque<int, ..>) <0xHEX> size:2 {
         [0] = (int) 2,
         [1] = (int) 3,
-    }
+    },
 }
 (gdb) p_v set
 "set" = (std::set<int, ..>) <0xHEX> size:3 {

@@ -4,11 +4,11 @@
 load gdbprint
 (gdb) py import gdbprint_libstdcpp
 load gdbprint_libstdcpp 0.1.1
-(gdb) break 127
+(gdb) break 133
 (gdb) run
-Breakpoint: file test.cpp, line 127.
+Breakpoint: file test.cpp, line 133.
 
-Breakpoint 1, main at test.cpp:127
+Breakpoint 1, main at test.cpp:133
 
 (gdb) p_s verbose 0
 (gdb) p_s w 0
@@ -197,7 +197,10 @@ Breakpoint 1, main at test.cpp:127
         "l" = 1000,
         "ul" = 1000,
         "f" = 1000,
-        "d" = 1000
+        "d" = 1000,
+        "inc" = {
+            "inc" = 0,
+        },
     },
     [1] = {
         "i" = 2,
@@ -205,7 +208,10 @@ Breakpoint 1, main at test.cpp:127
         "l" = 1000,
         "ul" = 1000,
         "f" = 1000,
-        "d" = 1000
+        "d" = 1000,
+        "inc" = {
+            "inc" = 0,
+        },
     },
 }
 (gdb) p_v ar
@@ -297,14 +303,14 @@ Breakpoint 1, main at test.cpp:127
     "c" = {
         [0] = 1,
         [1] = 2,
-    }
+    },
 }
 (gdb) p_v queue
 "queue" = {
     "c" = {
         [0] = 2,
         [1] = 3,
-    }
+    },
 }
 (gdb) p_v set
 "set" = {
