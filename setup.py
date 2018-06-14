@@ -36,7 +36,7 @@ class RunTests(Command):
             if self.xml_output:
                 xmlfile.write('<testcase classname="gdbtest" name="%s"' % test)
             else:
-                sys.stdout.write(test")
+                sys.stdout.write(test)
             sys.stdout.flush()
             test = path.join(cwd, test)
             fg = open(test+'.gdb', 'r')
