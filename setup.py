@@ -79,7 +79,7 @@ class RunTests(Command):
             with open(test + '.out', 'r') as f: i = f.read()
 
             if o == i:
-	        failed = False
+	            failed = False
             else:
                 failed = True    
                 if self.xml_output:
