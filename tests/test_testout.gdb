@@ -4,11 +4,11 @@
 load gdbprint
 (gdb) py import gdbprint_libstdcpp
 load gdbprint_libstdcpp 0.1.1
-(gdb) break 133
+(gdb) break 135
 (gdb) run
-Breakpoint: file test.cpp, line 133.
+Breakpoint: file test.cpp, line 135.
 
-Breakpoint 1, main at test.cpp:133
+Breakpoint 1, main at test.cpp:135
 
 (gdb) p_s verbose 0
 (gdb) p_s w 0
@@ -289,6 +289,8 @@ Breakpoint 1, main at test.cpp:133
     [1] = 200,
     [2] = <0x0>,
 }
+(gdb) p_v list_it
+"list_it" = { ptr = 100 }
 (gdb) p_v list_fw
 "list_fw" = {
     [0] = 34,
@@ -298,6 +300,8 @@ Breakpoint 1, main at test.cpp:133
     [4] = 16,
     [5] = <0x0>,
 }
+(gdb) p_v list_fw_it
+"list_fw_it" = { ptr = 0 }
 (gdb) p_v stack
 "stack" = {
     "c" = {

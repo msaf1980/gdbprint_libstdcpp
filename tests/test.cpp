@@ -77,10 +77,12 @@ int main(int argc, char* argv[]) {
         std::list<int> list;
         list.push_back(100);
         list.push_back(200);
+        auto list_it = list.begin();
 
         std::forward_list<int> list_fw = {77, 2, 16};
         list_fw.push_front (19);
         list_fw.push_front (34);
+        auto list_fw_it = list_fw.begin();
 
         std::stack<int> stack;
         stack.push(1);
@@ -98,7 +100,7 @@ int main(int argc, char* argv[]) {
         set.insert(1);
         set.insert(2);
         set.insert(3);
-        
+
         std::multiset<int> multiset;
         multiset.insert(1);
         multiset.insert(1);

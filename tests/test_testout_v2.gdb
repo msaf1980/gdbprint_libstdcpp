@@ -289,6 +289,8 @@ Breakpoint 1, main at test.cpp:133
     [1] = (int) 200,
     [2] = <0x0>,
 }
+(gdb) p_v list_it
+"list_it" = (std::_List_iterator<int>) <0xHEX> { ptr = (int) 100 }
 (gdb) p_v list_fw
 "list_fw" = (std::forward_list<int, ..>) <0xHEX> {
     [0] = (int) 34,
@@ -298,6 +300,7 @@ Breakpoint 1, main at test.cpp:133
     [4] = (int) 16,
     [5] = <0x0>,
 }
+(gdb) p_v list_fw_it
 (gdb) p_v stack
 "stack" = (std::stack<int, ..>) <0xHEX> {
     "c" = (std::deque<int, ..>) <0xHEX> size:2 {

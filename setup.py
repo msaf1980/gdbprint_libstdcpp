@@ -7,6 +7,9 @@ from setuptools import setup
 from distutils.command.clean import clean
 from distutils.errors import *
 
+class TestError(DistutilsError):
+    pass
+
 class RunTests(Command):
     user_options = [
         ('xml-output=', None,
