@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
         multimap.insert(std::pair<int, std::string>(2, "2"));
 
         std::shared_ptr<int> ptr_shared(new int(4));
-        std::unique_ptr<int> ptr_unique(new int [2]);
+        std::unique_ptr<int> ptr_unique(new int(1));
         std::auto_ptr<int> ptr_auto (new int(1));
 
 	return 0;

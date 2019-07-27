@@ -301,7 +301,7 @@ Breakpoint 1, main at test.cpp:135
     [5] = <0x0>,
 }
 (gdb) p_v list_fw_it
-"list_fw_it" = { ptr = 0 }
+"list_fw_it" = { ptr = 34 }
 (gdb) p_v stack
 "stack" = {
     "c" = {
@@ -373,4 +373,4 @@ Breakpoint 1, main at test.cpp:135
 (gdb) p_v ptr_shared
 "ptr_shared" = { ptr = { ptr = 4 } }
 (gdb) p_v ptr_unique
-"ptr_unique" = { ptr = { ptr = 0 } }
+"ptr_unique" = { ptr = { ptr = 1 } }

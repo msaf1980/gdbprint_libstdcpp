@@ -148,8 +148,20 @@ def get_value_from_list_node(node):
         pass
     raise ValueError("Unsupported implementation for %s" % str(node.type))
 
+def get_value_from_forward_list_node(node):
+    """Returns the value held in an _Fwd_list_node<_Val>"""
+    valptr = node['_M_storage'].address
+    return valptr.cast(node.type.template_argument(0).pointer()).dereference()
 
-class NodeIteratorPrinter:
+
+class StdListIteratorPrinter(DebugPrinter):
+    "Print std::list::iterator"
+    names = ["std::_List_iterator"]
+
+    @staticmethod
+    def display_hint():
+        return DisplayType.PTR
+
     def __init__(self, val, typename):
         self.val = val
         self.typename = typename
@@ -159,30 +171,6 @@ class NodeIteratorPrinter:
         nodetype = gdb.lookup_type('std::_List_node<%s>' % itype).pointer()
         elt = self.val['_M_node'].cast(nodetype).dereference()
         return get_value_from_list_node(elt), None
-
-
-class StdListIteratorPrinter(NodeIteratorPrinter, DebugPrinter):
-    "Print std::list::iterator"
-    names = ["std::_List_iterator"]
-
-    @staticmethod
-    def display_hint():
-        return DisplayType.PTR
-
-    def __init__(self, val, typename):
-        NodeIteratorPrinter.__init__(self, val, typename)
-
-
-class StdFwdListIteratorPrinter(NodeIteratorPrinter, DebugPrinter):
-    "Print std::forward_list::iterator"
-    names = ["std::_Fwd_list_iterator"]
-
-    @staticmethod
-    def display_hint():
-        return DisplayType.PTR
-
-    def __init__(self, val, typename):
-        NodeIteratorPrinter.__init__(self, val, typename)
 
 
 class StdListPrinter(DebugPrinter):
@@ -220,6 +208,25 @@ class StdListPrinter(DebugPrinter):
         return self.pos
 
 
+class StdFwdListIteratorPrinter(DebugPrinter):
+    "Print std::forward_list::iterator"
+    names = ["std::_Fwd_list_iterator"]
+
+    @staticmethod
+    def display_hint():
+        return DisplayType.PTR
+
+    def __init__(self, val, typename):
+        self.val = val
+        self.typename = typename
+
+    def ptr(self):
+        itype = self.val.type.template_argument(0)
+        nodetype = gdb.lookup_type('std::_Fwd_list_node<%s>' % itype).pointer()
+        elt = self.val['_M_node'].cast(nodetype).dereference()
+        return get_value_from_list_node(elt), None
+
+
 class StdForwardListPrinter(DebugPrinter):
     names = ["std::forward_list"]
 
@@ -248,9 +255,7 @@ class StdForwardListPrinter(DebugPrinter):
         self.base = elt['_M_next']
         pos = self.pos
         self.pos += 1
-        valptr = elt['_M_storage'].address
-        val = valptr.cast(
-            elt.type.template_argument(0).pointer()).dereference()
+        val = get_value_from_forward_list_node(elt)
         return (pos, val)
 
     def get_pos(self):

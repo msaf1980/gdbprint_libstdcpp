@@ -4,11 +4,11 @@
 load gdbprint
 (gdb) py import gdbprint_libstdcpp
 load gdbprint_libstdcpp 0.1.1
-(gdb) break 133
+(gdb) break 135
 (gdb) run
-Breakpoint: file test.cpp, line 133.
+Breakpoint: file test.cpp, line 135.
 
-Breakpoint 1, main at test.cpp:133
+Breakpoint 1, main at test.cpp:135
 
 (gdb) p_s verbose 2
 (gdb) p_s w 0
@@ -301,6 +301,7 @@ Breakpoint 1, main at test.cpp:133
     [5] = <0x0>,
 }
 (gdb) p_v list_fw_it
+"list_fw_it" = (std::_Fwd_list_iterator<int>) <0xHEX> { ptr = (int) 34 }
 (gdb) p_v stack
 "stack" = (std::stack<int, ..>) <0xHEX> {
     "c" = (std::deque<int, ..>) <0xHEX> size:2 {
@@ -372,4 +373,4 @@ Breakpoint 1, main at test.cpp:133
 (gdb) p_v ptr_shared
 "ptr_shared" = (std::shared_ptr<int>) <0xHEX> desc:"count 1, weak 0" { ptr = (int *) <0xHEX> { ptr = 4 } }
 (gdb) p_v ptr_unique
-"ptr_unique" = (std::unique_ptr<int, ..>) <0xHEX> { ptr = (int *) <0xHEX> { ptr = 0 } }
+"ptr_unique" = (std::unique_ptr<int, ..>) <0xHEX> { ptr = (int *) <0xHEX> { ptr = 1 } }
