@@ -224,7 +224,7 @@ class StdFwdListIteratorPrinter(DebugPrinter):
         itype = self.val.type.template_argument(0)
         nodetype = gdb.lookup_type('std::_Fwd_list_node<%s>' % itype).pointer()
         elt = self.val['_M_node'].cast(nodetype).dereference()
-        return get_value_from_list_node(elt), None
+        return get_value_from_forward_list_node(elt), None
 
 
 class StdForwardListPrinter(DebugPrinter):
