@@ -6,6 +6,12 @@ Supported C++11 structuras
 
 Tested on libstdc++-v3 (4.8 and 6.3)
 
+Install (in local packages as non-root)
+$ ./install.sh --user
+
+Install as root (in system packages)
+$ ./install.sh
+
 Debug printers:
 "std::tr1::unordered_set" = "<class 'gdbprint_libstdcpp.libstdcpp_v3.StdUnorderedSetPrinter'>" (set)
 "std::unordered_set" = "<class 'gdbprint_libstdcpp.libstdcpp_v3.StdUnorderedSetPrinter'>" (set)
